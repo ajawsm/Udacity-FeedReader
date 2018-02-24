@@ -1,4 +1,4 @@
-# Feed Reader Testing Instructions
+# Feed Reader Instructions
 
 1. Open **index.html**
 2. Wait for the feeds to load. Should be *quick*.
