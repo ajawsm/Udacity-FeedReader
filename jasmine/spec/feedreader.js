@@ -77,11 +77,8 @@ $(function() {
   });
   //Initial Entries
   describe('Initial Entries', function() {
-    /* Loads the first feed in async and ensures that entries are present
-    Uses beforeEach to ensure final values are present.
-    hasEntryLink checks the article class for an entry value, meaning
-    the API call has worked and that the entry is present and populated.
-    Checks to be sure feed length is greater than 0.
+    /*
+    Checks to be sure feed has at least one entry.
      */
     beforeEach(function(done) {
       loadFeed(0, done);
