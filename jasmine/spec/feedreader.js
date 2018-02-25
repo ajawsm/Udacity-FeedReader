@@ -84,18 +84,13 @@ $(function() {
     Checks to be sure feed length is greater than 0.
      */
     beforeEach(function(done) {
-      loadFeed(0, function() {
-        done();
-      });
+      loadFeed(0, done);
     });
 
 
-    it('loads feed', function(done) {
-      var hasEntryLink = $('article').hasClass('entry');
-      var feed = document.getElementsByClassName('entry-link');
-      expect(hasEntryLink).toBe(true);
-      expect(feed.length).not.toBe(0);
-      done();
+    it('loads feed', function() {
+      var hasEntries = $('.feed .entry');
+      expect(hasEntries.length).not.toBe(0);
     });
   });
 });
@@ -114,9 +109,7 @@ describe('New Feed Selection', function() {
   beforeEach(function(done) {
     loadFeed(0, function() {
       feedOne = $('.feed').html();
-      loadFeed(1, function() {
-        done();
-      });
+      loadFeed(1, done);
     });
   });
 
