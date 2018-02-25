@@ -32,8 +32,8 @@ $(function() {
      */
     it('have URLs', function() {
       for (var x in allFeeds) {
-        expect(allFeeds.url).not.toBe('');
-        expect(allFeeds.url).toBeDefined();
+        expect(allFeeds[x].url).not.toBe('');
+        expect(allFeeds[x].url).toBeDefined();
       }
     });
 
@@ -42,8 +42,8 @@ $(function() {
      */
     it('have names', function() {
       for (var x in allFeeds) {
-        expect(allFeeds.name).not.toBe('');
-        expect(allFeeds.name).toBeDefined();
+        expect(allFeeds[x].name).not.toBe('');
+        expect(allFeeds[x].name).toBeDefined();
       }
     });
   });
@@ -55,33 +55,33 @@ $(function() {
     /* Checks to make sure that the 'menu-hidden' class is present
     and that the menu is hidden on index.html page load.
      */
+    var hiddenMenu = $('body').hasClass('menu-hidden');
+    var menuIcon = $('.menu-icon-link');
     it('is hidden', function() {
-      var hidden = $('body').hasClass('menu-hidden');
-      expect(hidden).toBe(true);
+
+      expect(hiddenMenu).toBe(true);
 
     });
 
-    /* Establishes a click icon to check that one odd number clicks,
-    the menu is shown, and not shown on even numbered clicks of the hamburger icon.
+    /* Establishes a click icon variable, then clicks it twice to see if menu-hidden class is present in the body.
      */
     it('is visible when clicked', function() {
-      var visible = $('body').hasClass('slide-menu');
-      var menuIcon = $('header').hasClass('a.menu-icon-link');
-      clickMenu(function() {
-          menuIcon.click();
-          expect(visible).toBeTruthy();
-          menuIcon.click();
-          expect(visible).toBeFalsy();
-      });
-      clickMenu();
+
+      menuIcon.click();
+      expect($('body').hasClass('menu-hidden')).toBe(false);
+      menuIcon.click();
+      expect($('body').hasClass('menu-hidden')).toBe(true);
+
+
     });
   });
-
+  //Initial Entries
   describe('Initial Entries', function() {
     /* Loads the first feed in async and ensures that entries are present
     Uses beforeEach to ensure final values are present.
     hasEntryLink checks the article class for an entry value, meaning
     the API call has worked and that the entry is present and populated.
+    Checks to be sure feed length is greater than 0.
      */
     beforeEach(function(done) {
       loadFeed(0, function() {
@@ -89,13 +89,14 @@ $(function() {
       });
     });
 
-  });
-  it('loads feed', function(done) {
-    var hasEntry = $('feed').hasClass('entry');
-    var hasEntryLink = $('article').hasClass('entry');
-    expect(hasEntry).toBe(true);
-    expect(hasEntryLink).toBe(true);
-    done();
+
+    it('loads feed', function(done) {
+      var hasEntryLink = $('article').hasClass('entry');
+      var feed = document.getElementsByClassName('entry-link');
+      expect(hasEntryLink).toBe(true);
+      expect(feed.length).not.toBe(0);
+      done();
+    });
   });
 });
 
@@ -119,12 +120,7 @@ describe('New Feed Selection', function() {
     });
   });
 
-  //Returns to the intended first feed following the check
-  afterEach(function(done) {
-    loadFeed(0, function() {
-      done();
-    });
-  });
+
 
   //Ensures that the two feeds have different content.
   it('changes content with new entry', function(done) {
