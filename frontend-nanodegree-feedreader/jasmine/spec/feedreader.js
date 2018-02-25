@@ -33,6 +33,7 @@ $(function() {
     it('have URLs', function() {
       for (var x in allFeeds) {
         expect(allFeeds.url).not.toBe('');
+        expect(allFeeds.url).toBeDefined;
       }
     });
 
@@ -42,6 +43,7 @@ $(function() {
     it('have names', function() {
       for (var x in allFeeds) {
         expect(allFeeds.name).not.toBe('');
+        expect(allFeeds.name).toBeDefined;
       }
     });
   });
@@ -67,6 +69,7 @@ $(function() {
       var menuIcon = $('header').hasClass('a.menu-icon-link');
       var clickCount = 0;
 
+
       menuIcon.onClick = function() {
         clickCount += 1;
       };
@@ -77,7 +80,7 @@ $(function() {
       }
     });
   });
-  /* TODO: Write a new test suite named "Initial Entries" */
+
   describe('Initial Entries', function() {
     /* Loads the first feed in async and ensures that entries are present
     Uses beforeEach to ensure final values are present.
@@ -92,7 +95,9 @@ $(function() {
 
   });
   it('loads feed', function(done) {
+    var hasEntry = $('feed').hasClass('entry');
     var hasEntryLink = $('article').hasClass('entry');
+    expect(hasEntry).toBe(true);
     expect(hasEntryLink).toBe(true);
     done();
   });
