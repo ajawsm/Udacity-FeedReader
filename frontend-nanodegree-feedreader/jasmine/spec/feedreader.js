@@ -33,7 +33,7 @@ $(function() {
     it('have URLs', function() {
       for (var x in allFeeds) {
         expect(allFeeds.url).not.toBe('');
-        expect(allFeeds.url).toBeDefined;
+        expect(allFeeds.url).toBeDefined();
       }
     });
 
@@ -43,7 +43,7 @@ $(function() {
     it('have names', function() {
       for (var x in allFeeds) {
         expect(allFeeds.name).not.toBe('');
-        expect(allFeeds.name).toBeDefined;
+        expect(allFeeds.name).toBeDefined();
       }
     });
   });
@@ -67,17 +67,13 @@ $(function() {
     it('is visible when clicked', function() {
       var visible = $('body').hasClass('slide-menu');
       var menuIcon = $('header').hasClass('a.menu-icon-link');
-      var clickCount = 0;
-
-
-      menuIcon.onClick = function() {
-        clickCount += 1;
-      };
-      if (clickCount % 2 === 0) {
-        expect(visible).toBeFalsy();
-      } else {
-        expect(visible).toBeTruthy();
-      }
+      clickMenu(function() {
+          menuIcon.click();
+          expect(visible).toBeTruthy();
+          menuIcon.click();
+          expect(visible).toBeFalsy();
+      });
+      clickMenu();
     });
   });
 
